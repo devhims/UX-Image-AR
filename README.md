@@ -2,7 +2,7 @@
 UX implementation for image tracking based AR experiences (Unity AR Foundation 2019.4+). Based on [Unity's AR Foundation Demos - UX Onboarding asset](https://assetstore.unity.com/packages/templates/ar-foundation-demos-onboarding-ux-164766).
 
 ## Demo
- <img src="Images/UXImages.gif" width="350">
+YouTube [Link](https://youtu.be/lKs1xv_yfDQ)
 
 ## How to build?
 1. Make sure you're using **Unity 2019.4** and above.
