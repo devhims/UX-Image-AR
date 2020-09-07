@@ -5,6 +5,16 @@ using UnityEngine.XR.ARSubsystems;
 using System.Collections.Generic;
 using UnityEngine.Video;
 
+[Serializable]
+public class Playables
+{
+    public VideoClip videoClip;
+    [HideInInspector]
+    public GameObject surface;
+    [HideInInspector]
+    public Guid imageID;
+}
+
 public class ImageTrackingManager : MonoBehaviour
 {
     [SerializeField]
@@ -18,23 +28,22 @@ public class ImageTrackingManager : MonoBehaviour
     [Tooltip("Prefab for tracked 1 image")]
     GameObject videoSurfacePrefab;
 
-    public List<VideoClip> videoClips = new List<VideoClip>();
-
-    GameObject firstSurface;
-    GameObject secondSurface;
-    GameObject thirdSurface;
-
-    static Guid firstImageGUID;
-    static Guid secondImageGUID;
-    static Guid thirdImageGUID;
+    public Playables[] playables;
 
     void OnEnable()
     {
         imageLibrary = imageManager.referenceLibrary;
 
-        firstImageGUID = imageLibrary[0].guid;
-        secondImageGUID = imageLibrary[1].guid;
-        thirdImageGUID = imageLibrary[2].guid;
+        if (playables.Length != imageLibrary.count)
+        {
+            Debug.LogError("Length of image library and playables must match");
+            return;
+        }
+
+        for (int i = 0; i < imageLibrary.count; i++)
+        {
+            playables[i].imageID = imageLibrary[i].guid;
+        }
 
         imageManager.trackedImagesChanged += ImageManagerOnTrackedImagesChanged;
     }
@@ -49,17 +58,12 @@ public class ImageTrackingManager : MonoBehaviour
         // added, spawn prefab
         foreach(ARTrackedImage image in images.added)
         {
-            if (image.referenceImage.guid == firstImageGUID)
+            foreach (var playable in playables)
             {
-                firstSurface = PrepareSurface(videoSurfacePrefab, image, videoClips[0]);
-            }
-            else if (image.referenceImage.guid == secondImageGUID)
-            {
-                secondSurface = PrepareSurface(videoSurfacePrefab, image, videoClips[1]);
-            }
-            else if (image.referenceImage.guid == thirdImageGUID)
-            {
-                thirdSurface = PrepareSurface(videoSurfacePrefab, image, videoClips[2]);
+                if (playable.imageID == image.referenceImage.guid)
+                {
+                    playable.surface = PrepareSurface(videoSurfacePrefab, image, playable.videoClip);
+                }
             }
         }
         
@@ -69,33 +73,23 @@ public class ImageTrackingManager : MonoBehaviour
             // image is tracking or tracking with limited state, show visuals and update it's position and rotation
             if (image.trackingState == TrackingState.Tracking)
             {
-                if (image.referenceImage.guid == firstImageGUID)
+                foreach (var playable in playables)
                 {
-                    UpdateSurface(firstSurface, image);
-                }
-                else if (image.referenceImage.guid == secondImageGUID)
-                {
-                    UpdateSurface(secondSurface, image);
-                }
-                else if (image.referenceImage.guid == thirdImageGUID)
-                {
-                    UpdateSurface(thirdSurface, image);
+                    if (playable.imageID == image.referenceImage.guid)
+                    {
+                        UpdateSurface(playable.surface, image);
+                    }
                 }
             }
             // image is no longer tracking, disable visuals TrackingState.Limited TrackingState.None
             else
             {
-                if (image.referenceImage.guid == firstImageGUID)
+                foreach (var playable in playables)
                 {
-                    firstSurface.SetActive(false);
-                }
-                else if (image.referenceImage.guid == secondImageGUID)
-                {
-                    secondSurface.SetActive(false);
-                }
-                else if (image.referenceImage.guid == thirdImageGUID)
-                {
-                    thirdSurface.SetActive(false);
+                    if (playable.imageID == image.referenceImage.guid)
+                    {
+                        playable.surface.SetActive(false);
+                    }
                 }
             }
         }
@@ -103,17 +97,12 @@ public class ImageTrackingManager : MonoBehaviour
         // removed, destroy spawned instance
         foreach(ARTrackedImage image in images.removed)
         {
-            if (image.referenceImage.guid == firstImageGUID)
+            foreach (var playable in playables)
             {
-                Destroy(firstSurface);
-            }
-            else if (image.referenceImage.guid == firstImageGUID)
-            {
-                Destroy(secondSurface);
-            }
-            else if (image.referenceImage.guid == thirdImageGUID)
-            {
-                Destroy(thirdSurface);
+                if (playable.imageID == image.referenceImage.guid)
+                {
+                    Destroy(playable.surface);
+                }
             }
         }
     }

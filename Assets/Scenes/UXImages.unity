@@ -528,12 +528,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageManager: {fileID: 1335839540}
+  imageLibrary: {fileID: 11400000, guid: bf9b62735df95475fbf811a4894e8a5f, type: 2}
   videoSurfacePrefab: {fileID: 7144984257847262214, guid: e686b5230e6ae4680bde3874cdcabfc0,
     type: 3}
-  videoClips:
-  - {fileID: 32900000, guid: df21904a707ae4095848eb16198d1065, type: 3}
-  - {fileID: 32900000, guid: 854f99b1bfb274d26aa20777e545a28b, type: 3}
-  - {fileID: 32900000, guid: f3013e99acfe34c7cbf92aefebb8ca6a, type: 3}
+  playables:
+  - videoClip: {fileID: 32900000, guid: df21904a707ae4095848eb16198d1065, type: 3}
+    surface: {fileID: 0}
+  - videoClip: {fileID: 32900000, guid: 854f99b1bfb274d26aa20777e545a28b, type: 3}
+    surface: {fileID: 0}
+  - videoClip: {fileID: 32900000, guid: f3013e99acfe34c7cbf92aefebb8ca6a, type: 3}
+    surface: {fileID: 0}
 --- !u!4 &1875185603
 Transform:
   m_ObjectHideFlags: 0
