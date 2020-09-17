@@ -10,7 +10,7 @@ UX implementation for image tracking based AR experiences (Unity AR Foundation 2
 3. Change the build platform to Android/iOS
 4. Settings for Android are already in place, just do a build and run. Check the AR Foundation specific platform settings for iOS.
 
-**Note:** Go to Assets/Scenes/UXImages for the scene setup. 
+**Note:** Go to Assets/UX/Scenes/UXImages for the scene setup. 
 
 ## Features:
 1. UI Feedback on AR session states implemented. 
