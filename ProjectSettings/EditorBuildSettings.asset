@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/UXImages.unity
+    path: Assets/UX/Scenes/UXImages.unity
     guid: 19f2d6f55eb894a679abdd30f3ad36bf
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 962d2c591762e4dca8ceec556900b09b,
