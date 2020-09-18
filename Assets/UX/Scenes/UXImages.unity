@@ -629,62 +629,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ScreenspaceUI
       objectReference: {fileID: 0}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _reasonParent
-      value: 
-      objectReference: {fileID: 3244458064877656682}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _reasonText
-      value: 
-      objectReference: {fileID: 3244458064877656681}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _reasonIcon
-      value: 
-      objectReference: {fileID: 3244458064877656680}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _initRelocalSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 03f483cca61204f2c9ee897b5211414f,
-        type: 3}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _motionSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cb790425a497447e7aec4b22fd5db148,
-        type: 3}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _lightSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 31cdbd93de4774cb9a1a2ca00f34eb65,
-        type: 3}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _featuresSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 5b235561398da4dc6a7f9fea67bb700d,
-        type: 3}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _unsupportedSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 4d8cf40a306c8483cb6d79cd26daf44a,
-        type: 3}
-    - target: {fileID: 3244458065259055354, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: _noneSprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 29fc805acb69f4d7b84b4b57f58676b7,
-        type: 3}
-    - target: {fileID: 3244458065259055356, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-        type: 3}
-      propertyPath: imageManager
-      value: 
-      objectReference: {fileID: 1335839540}
     - target: {fileID: 3244458065259055358, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -742,33 +686,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fee14db509eda4d2cb5d37f3cdc9e67e, type: 3}
---- !u!114 &3244458064877656680 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9220424385591912623, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3244458064877656679}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &3244458064877656681 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9220424384776308149, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3244458064877656679}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &3244458064877656682 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9220424383621823142, guid: fee14db509eda4d2cb5d37f3cdc9e67e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3244458064877656679}
-  m_PrefabAsset: {fileID: 0}

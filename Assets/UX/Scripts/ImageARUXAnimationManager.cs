@@ -28,7 +28,7 @@ public class ImageARUXAnimationManager : MonoBehaviour
     Color whiteAlpha1 = new Color(1, 1, 1, 1);
     Color targetColor;
 
-    const string k_FindClipText = "Find an Image to Track";
+    const string k_FindClipText = "Find an image to track";
 
     [HideInInspector]
     public bool fadeOffComplete;
@@ -36,10 +36,6 @@ public class ImageARUXAnimationManager : MonoBehaviour
     [SerializeField]
     Texture transparentTexture;
     RenderTexture m_RenderTexture;
-
-
-    public bool fadeOnStarted;
-    public bool fadeOffStarted;
 
     void OnEnable()
     {
@@ -61,7 +57,6 @@ public class ImageARUXAnimationManager : MonoBehaviour
     {
         if (videoPlayer.clip != null)
         {
-            fadeOffStarted = true;
             targetColor = whiteAlpha0;
             rawImage.DOColor(targetColor, fadeOffDuration).OnComplete(() => fadeOffComplete = true);
             instructionText.DOColor(targetColor, fadeOffDuration);
@@ -72,7 +67,6 @@ public class ImageARUXAnimationManager : MonoBehaviour
     {
         if (videoPlayer.clip != null)
         {
-            fadeOnStarted = true;
             targetColor = whiteAlpha1;
             rawImage.DOColor(targetColor, fadeOnDuration);
             instructionText.DOColor(targetColor, fadeOnDuration);

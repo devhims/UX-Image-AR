@@ -7,76 +7,85 @@ using UnityEngine.Video;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
+[RequireComponent(typeof(ImageARUXAnimationManager))]
 public class ImageUIManager : MonoBehaviour
-{
-    [SerializeField] ARTrackedImageManager imageManager;
-    [SerializeField] ImageARUXAnimationManager animationManager;
+{ 
+    ImageARUXAnimationManager animationManager;
+    ARTrackedImageManager imageManager;
 
-    bool prepared;
+    bool _sessionTracking;
+    int totalTargetsFound = 0;
+    bool showScanUI = true;
+
+    void Awake()
+    {
+        imageManager = FindObjectOfType<ARTrackedImageManager>();
+        animationManager = GetComponent<ImageARUXAnimationManager>();
+    }
 
     void OnEnable()
     {
-        ARSession.stateChanged += ShowFindImageUI;
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-        imageManager.trackedImagesChanged += ImageManagerTrackedImagesChanged;
+        ARSession.stateChanged += OnSessionStateChange;
+        imageManager.trackedImagesChanged += OnTrackedImagesChanged;
     }
 
-    void ImageManagerTrackedImagesChanged(ARTrackedImagesChangedEventArgs images)
+    void OnSessionStateChange(ARSessionStateChangedEventArgs args)
     {
-        if (images.updated.Count > 0)
-        {
-            int count = 0;
+        _sessionTracking = args.state == ARSessionState.SessionTracking ? true : false;
 
-            foreach (var image in images.updated)
+        if (_sessionTracking && imageManager.referenceLibrary.count > 0)
+        {
+            animationManager.ShowFindImage();
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
+        else
+        {
+            animationManager.FadeOffUI();
+            Screen.sleepTimeout = SleepTimeout.SystemSetting;
+        }
+    }
+
+    void OnTrackedImagesChanged(ARTrackedImagesChangedEventArgs args)
+    {
+        //Debug.Log("updated images:" + args.updated.Count);
+        //Debug.Log("trackeables: " + imageManager.trackables.count);
+
+        totalTargetsFound = args.updated.Count;
+
+        if (totalTargetsFound > 0 && _sessionTracking)
+        {
+            int currentlyTrackedTargets = 0;
+
+            foreach (var image in args.updated)
             {
-                if (image.trackingState != TrackingState.Tracking)
+                if (image.trackingState == TrackingState.Tracking)
                 {
-                    count++;
+                    currentlyTrackedTargets++;
                 }
             }
 
-            if (count >= imageManager.trackables.count)
-            {
-                animationManager.ShowFindImage();
-            }
-            else
+            ShowHideScanAnim(currentlyTrackedTargets);
+        }
+    }
+
+    void ShowHideScanAnim(int currentTargets)
+    {
+        if (currentTargets > 0)
+        {
+            if (showScanUI)
             {
                 animationManager.FadeOffUI();
+                showScanUI = false;
             }
         }
-    }
-
-    void ShowFindImageUI(ARSessionStateChangedEventArgs args)
-    {
-        if (args.state == ARSessionState.SessionTracking && !ImageFound())
+        else
         {
-            // Show scan UI
-            animationManager.ShowFindImage();
-            Screen.sleepTimeout = SleepTimeout.NeverSleep;
-            Debug.Log("called" + Screen.sleepTimeout);
+            if (!showScanUI)
+            {
+                animationManager.ShowFindImage();
+                showScanUI = true;
+            }
         }
-    }
-
-    void Update()
-    {
-        // Proceed only when the session is in tracking state
-        if (ARSession.state != ARSessionState.SessionTracking)
-        {
-            return;
-        }
-
-        if (ImageFound() && !prepared)
-        {
-            // Hide scan UI
-            animationManager.FadeOffUI();
-            prepared = true;
-        }
-    }
-
-
-    bool ImageFound()
-    {
-        return imageManager?.trackables.count > 0;
     }
     
 }
